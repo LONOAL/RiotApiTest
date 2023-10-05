@@ -20,35 +20,19 @@ import java.util.concurrent.Executors
 class Api {
 
 
-    fun getSummonerIdByName(name: String): String {
-        var sumId : String = ""
-        ClientApi.summonerV4(PlatformRoutes.EUW1).getSummonerByName(name).enqueue(object : Callback<SummonerDTO>{
-            override fun onResponse(call: Call<SummonerDTO>, response: Response<SummonerDTO>) {
-                response.body()?.let { summonerDTO ->
-                    sumId= summonerDTO.id
-                }
-            }
-
-            override fun onFailure(call: Call<SummonerDTO>, t: Throwable) {
-                t.printStackTrace()
-            }
-        }
-        )
-        return sumId
-    }
-
     fun initApi(){
         // OR simply put
         ClientApi.apply {
             tokenProvider = object : TokenProvider {
                 override fun getToken(): String {
-                    return "RGAPI-d82bdde8-9bca-44c9-9b5c-3e30617afbe7"
+                    return "RGAPI-26015c48-f5f6-4198-b608-8b4522c82a3c"
                 }
             }
         }
     }
     // Utilizamos un Executor para realizar la llamada a la API en un hilo separado
     private val executor = Executors.newSingleThreadExecutor()
+
 
     fun getEncryptedSummonerIdByName(name: String): String {
         var sumId: String? = null
@@ -71,6 +55,7 @@ class Api {
         // Verificamos si sumId es null (si hubo un error) o si tiene un valor
         return sumId ?: "Error obteniendo el Summoner ID"
     }
+
 
 
     fun getChampionIdByName(nombreCampeon: String, context : Context): Long {
@@ -98,25 +83,26 @@ class Api {
         return 33
     }
 
-    fun getMasteryPoints(sumName: String, champName: String, context: Context): Int {
-        var masPoints : Int? = null
-
-        executor.execute {
-            try {
-                val response = ClientApi.championMasteryV4(PlatformRoutes.EUW1).getChampionMasteriesBySummonerAndChampion(getEncryptedSummonerIdByName(sumName),getChampionIdByName(champName,context)).execute()
-                if (response.isSuccessful) {
-                    val masteryDTO = response.body()
-                    masPoints = masteryDTO?.championPoints
+    fun getMasteryPoints(sumName: String, champName: String, context: Context, callback: (Int) -> Unit) {
+        ClientApi.championMasteryV4(PlatformRoutes.EUW1).getChampionMasteriesBySummonerAndChampion(
+            getEncryptedSummonerIdByName(sumName),
+            getChampionIdByName(champName, context)
+        ).enqueue(object : Callback<ChampionMasteryDTO> {
+            override fun onResponse(call: Call<ChampionMasteryDTO>, response: Response<ChampionMasteryDTO>) {
+                response.body()?.let { championMasteryDTO ->
+                    val masPoints = championMasteryDTO.championPoints
+                    callback(masPoints ?: 0)
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
-        }
 
-        Thread.sleep(2000)
-
-        return masPoints ?: 0
+            override fun onFailure(call: Call<ChampionMasteryDTO>, t: Throwable) {
+                t.printStackTrace()
+                println(t.message)
+                callback(0)
+            }
+        })
     }
+
 
 
 }

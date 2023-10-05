@@ -23,7 +23,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Api().initApi()
-        Log.d("LoL",Api().getMasteryPoints("LONOAL02","Swain",applicationContext).toString())
+        Api().getMasteryPoints("LONOAL02", "Swain", this) { masteryPoints ->
+            Log.d("Hola", "Puntos de Maestría: $masteryPoints")
+        }
+
         setContent {
             RiotApiTestTheme {
                 // A surface container using the 'background' color from the theme
@@ -53,11 +56,13 @@ fun Greeting(context : Context) {
 
     Column(Modifier.padding(16.dp)){
         TextField(value = champName.value, onValueChange = { champName.value = it }, Modifier.padding(16.dp))
-        Button(onClick = { points.value=Api().getMasteryPoints("LONOAL02",champName.value,context)
+        Button(onClick = { Api().getMasteryPoints("LONOAL02",champName.value,context){ masteryPoints ->
+            points.value=masteryPoints
+        }
         }) {
 
         }
-        Text(text = Api().getMasteryPoints("LONOAL02","Swain",context).toString())
+        Text(text = points.value.toString())
     }
 
 }
