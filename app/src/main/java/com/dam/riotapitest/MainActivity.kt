@@ -76,6 +76,9 @@ class MainActivity : ComponentActivity() {
             "Galio" -> R.drawable.galio
             "Mordekaiser" -> R.drawable.mordekaiser
             "MissFortune" -> R.drawable.missfortune
+            "Shyvana" -> R.drawable.shyvanna
+            "Swain" -> R.drawable.swain
+            "Zed" -> R.drawable.zed
             else -> R.drawable.none
         }
         val myImageView = findViewById<ImageView>(R.id.champPhoto)
