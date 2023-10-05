@@ -1,7 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#0A0932"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:capitalize="characters"
+        android:padding="20dp"
+        android:rotationX="33"
+        android:text="Liga das Lendas buscador"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="350dp"
+        android:layout_height="48dp"
+        android:background="#30323E"
+        android:foregroundTint="#0B0707"
+        android:hint="Nombre del invocador"
+        android:inputType="text"
+        android:layout_gravity="center"
+        android:textColor="#FF9800"
+        android:textColorHighlight="#FF9800"
+        android:textColorHint="#FF9800"
+        android:visibility="visible" />
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="350dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:background="#30323E"
+        android:hint="Nombre del campeón"
+        android:inputType="text"
+        android:textColor="#FF9800"
+        android:textColorHint="#FF9800"
+        android:textColorLink="#FF9800" />
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <Button
+        android:id="@+id/button2"
+        style="@android:style/Widget.Button"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_button"
+        android:baselineAligned="false"
+        android:text="BUSCAR"
+        android:textColor="#FFC107" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:capitalize="characters"
+        android:padding="20dp"
+        android:text="Puntos: "
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
 </LinearLayout>
