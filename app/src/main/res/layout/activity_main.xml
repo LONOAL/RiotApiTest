@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0A0932"
@@ -68,10 +70,15 @@
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
+        android:background="#534195"
+        android:drawingCacheQuality="high"
+        android:dropDownWidth="match_parent"
         android:dropDownSelector="@android:color/holo_orange_light"
+        android:duplicateParentState="false"
         android:focusableInTouchMode="false"
         android:focusedByDefault="false"
-        android:forceHasOverlappingRendering="false" />
+        android:forceHasOverlappingRendering="false"
+        android:spinnerMode="dialog" />
 
     <Space
         android:layout_width="match_parent"
@@ -87,6 +94,28 @@
         android:baselineAligned="false"
         android:text="BUSCAR"
         android:textColor="#FFC107" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="44dp" />
+
+    <ImageView
+        android:id="@+id/champPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="158dp"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/masteryLevelText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:capitalize="characters"
+        android:padding="20dp"
+        android:text="Nivel de Maestría: "
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView3"

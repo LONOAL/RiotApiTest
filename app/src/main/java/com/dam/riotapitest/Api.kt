@@ -134,5 +134,41 @@ class Api {
     }
 
 
+    fun getMasteryLevel(sumName: String, champName: String, context: Context,serverSelect : Int, callback: (Int) -> Unit) {
+        var server: PlatformRoutes
 
+
+        when (serverSelect) {
+            0 -> {server = PlatformRoutes.EUW1}
+            1 -> {server = PlatformRoutes.BR1}
+            2 -> {server = PlatformRoutes.KR}
+            3 -> {server = PlatformRoutes.LA1}
+            4 -> {server = PlatformRoutes.LA2}
+            5 -> {server = PlatformRoutes.NA1}
+            6 -> {server = PlatformRoutes.OC1}
+            7 -> {server = PlatformRoutes.TR1}
+            8 -> {server = PlatformRoutes.RU}
+            9 -> {server = PlatformRoutes.EUN1}
+            10 -> {server = PlatformRoutes.JP1}
+            else -> {server = PlatformRoutes.EUW1}
+        }
+
+        ClientApi.championMasteryV4(server).getChampionMasteriesBySummonerAndChampion(
+            getEncryptedSummonerIdByName(sumName, server),
+            getChampionIdByName(champName, context)
+        ).enqueue(object : Callback<ChampionMasteryDTO> {
+            override fun onResponse(call: Call<ChampionMasteryDTO>, response: Response<ChampionMasteryDTO>) {
+                response.body()?.let { championMasteryDTO ->
+                    val masteryLvl = championMasteryDTO.championLevel
+                    callback(masteryLvl ?: 0)
+                }
+            }
+
+            override fun onFailure(call: Call<ChampionMasteryDTO>, t: Throwable) {
+                t.printStackTrace()
+                println(t.message)
+                callback(0)
+            }
+        })
+    }
 }
