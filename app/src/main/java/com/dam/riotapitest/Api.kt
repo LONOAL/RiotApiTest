@@ -83,24 +83,8 @@ class Api {
         return 33
     }
 
-    fun getMasteryPoints(sumName: String, champName: String, context: Context, serverSelect: Int, callback: (Int) -> Unit) {
-        var server = PlatformRoutes.EUW1
-
-        when (serverSelect) {
-            1 -> {server = PlatformRoutes.EUW1}
-            2 -> {server = PlatformRoutes.BR1}
-            3 -> {server = PlatformRoutes.KR}
-            4 -> {server = PlatformRoutes.LA1}
-            5 -> {server = PlatformRoutes.LA2}
-            6 -> {server = PlatformRoutes.NA1}
-            7 -> {server = PlatformRoutes.OC1}
-            8 -> {server = PlatformRoutes.TR1}
-            9 -> {server = PlatformRoutes.RU}
-            10 -> {server = PlatformRoutes.EUN1}
-            11 -> {server = PlatformRoutes.JP1}
-            else -> {}
-        }
-        ClientApi.championMasteryV4(server).getChampionMasteriesBySummonerAndChampion(
+    fun getMasteryPoints(sumName: String, champName: String, context: Context, callback: (Int) -> Unit) {
+        ClientApi.championMasteryV4(PlatformRoutes.EUW1).getChampionMasteriesBySummonerAndChampion(
             getEncryptedSummonerIdByName(sumName),
             getChampionIdByName(champName, context)
         ).enqueue(object : Callback<ChampionMasteryDTO> {
