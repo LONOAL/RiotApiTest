@@ -7,7 +7,7 @@ plugins {
 
 android {
         viewBinding {
-            enabled = true
+            enabled = false
         }
     namespace 'com.dam.riotapitest'
     compileSdk 33

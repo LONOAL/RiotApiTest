@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinner_items">
+        <item>EUW</item>
+        <item>BR</item>
+        <item>KR</item>
+        <item>LA1</item>
+        <item>LA2</item>
+        <item>NA</item>
+        <item>OCE</item>
+        <item>TR</item>
+        <item>RU</item>
+        <item>EUN</item>
+        <item>JP</item>
+        <!-- Add more items as needed -->
+    </string-array>
+</resources>
+
