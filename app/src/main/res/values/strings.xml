@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">RiotApiTest</string>
+    <string name="champions">C:\\Users\\PC-LORENZO\\AndroidStudioProjects\\RiotApiTest\\app\\src\\main\\java\\com\\dam\\riotapitest\\files\\ChampionId.txt</string>
+</resources>
