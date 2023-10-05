@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Api().initApi()
-        Api().getMasteryPoints("LONOAL02", "Swain", this,2) { masteryPoints ->
+        Api().getMasteryPoints("JUGKING", "Swain", this, "KR") { masteryPoints ->
             Log.d("Hola", "Puntos de Maestría: $masteryPoints")
         }
 
@@ -57,18 +57,14 @@ fun Greeting(context : Context) {
     var points = remember {
         mutableStateOf(0)
     }
-    var serverSelect = remember{ mutableStateOf(0) }
+    var serverSelect = remember{ mutableStateOf("") }
 
     Column(Modifier.padding(16.dp)){
         TextField(value = sumName.value, onValueChange = { sumName.value = it }, Modifier.padding(16.dp))
         TextField(value = champName.value, onValueChange = { champName.value = it }, Modifier.padding(16.dp))
-        DropdownMenu(expanded = false, onDismissRequest = {
-        }) {
-            DropdownMenuItem( onClick = { serverSelect.value = 1 }) {}
-            DropdownMenuItem( onClick = { serverSelect.value = 2 }) {}
-            DropdownMenuItem( onClick = { serverSelect.value = 3 }) {}
-        }
-        Button(onClick = { Api().getMasteryPoints(sumName.value,champName.value, context ,serverSelect.value){ masteryPoints ->
+        TextField(value = serverSelect.value, onValueChange = {serverSelect.value = it}, Modifier.padding(16.dp))
+
+        Button(onClick = { Api().getMasteryPoints(sumName.value,champName.value, context, serverSelect.value){ masteryPoints ->
             points.value=masteryPoints
         }
         }) {

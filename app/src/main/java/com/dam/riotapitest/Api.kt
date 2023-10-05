@@ -20,6 +20,18 @@ import java.util.concurrent.Executors
 class Api {
 
 
+    val EUW = 1
+    val BR = 2
+    val KR = 3
+    val LA1 = 4
+    val LA2 = 5
+    val NA = 6
+    val OCE = 7
+    val TR = 8
+    val RU = 9
+    val EUN = 10
+    val JP = 11
+
     fun initApi(){
         // OR simply put
         ClientApi.apply {
@@ -34,12 +46,12 @@ class Api {
     private val executor = Executors.newSingleThreadExecutor()
 
 
-    fun getEncryptedSummonerIdByName(name: String): String {
+    fun getEncryptedSummonerIdByName(name: String, server: PlatformRoutes): String {
         var sumId: String? = null
 
         executor.execute {
             try {
-                val response = ClientApi.summonerV4(PlatformRoutes.EUW1).getSummonerByName(name).execute()
+                val response = ClientApi.summonerV4(server).getSummonerByName(name).execute()
                 if (response.isSuccessful) {
                     val summonerDTO = response.body()
                     sumId = summonerDTO?.id
@@ -83,25 +95,26 @@ class Api {
         return 33
     }
 
-    fun getMasteryPoints(sumName: String, champName: String, context: Context, serverSelect: Int, callback: (Int) -> Unit) {
-        var server = PlatformRoutes.EUW1
+    fun getMasteryPoints(sumName: String, champName: String, context: Context,serverSelect : String,  callback: (Int) -> Unit) {
+        var server: PlatformRoutes
 
         when (serverSelect) {
-            1 -> {server = PlatformRoutes.EUW1}
-            2 -> {server = PlatformRoutes.BR1}
-            3 -> {server = PlatformRoutes.KR}
-            4 -> {server = PlatformRoutes.LA1}
-            5 -> {server = PlatformRoutes.LA2}
-            6 -> {server = PlatformRoutes.NA1}
-            7 -> {server = PlatformRoutes.OC1}
-            8 -> {server = PlatformRoutes.TR1}
-            9 -> {server = PlatformRoutes.RU}
-            10 -> {server = PlatformRoutes.EUN1}
-            11 -> {server = PlatformRoutes.JP1}
-            else -> {}
+            EUW.toString() -> {server = PlatformRoutes.EUW1}
+            BR.toString() -> {server = PlatformRoutes.BR1}
+            KR.toString() -> {server = PlatformRoutes.KR}
+            LA1.toString() -> {server = PlatformRoutes.LA1}
+            LA2.toString() -> {server = PlatformRoutes.LA2}
+            NA.toString() -> {server = PlatformRoutes.NA1}
+            OCE.toString() -> {server = PlatformRoutes.OC1}
+            TR.toString() -> {server = PlatformRoutes.TR1}
+            RU.toString() -> {server = PlatformRoutes.RU}
+            EUN.toString() -> {server = PlatformRoutes.EUN1}
+            JP.toString() -> {server = PlatformRoutes.JP1}
+            else -> {server = PlatformRoutes.EUW1}
         }
+
         ClientApi.championMasteryV4(server).getChampionMasteriesBySummonerAndChampion(
-            getEncryptedSummonerIdByName(sumName),
+            getEncryptedSummonerIdByName(sumName, server),
             getChampionIdByName(champName, context)
         ).enqueue(object : Callback<ChampionMasteryDTO> {
             override fun onResponse(call: Call<ChampionMasteryDTO>, response: Response<ChampionMasteryDTO>) {
