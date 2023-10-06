@@ -19,25 +19,13 @@ import java.util.concurrent.Executors
 
 class Api {
 
-    val EUW = 1
-    val BR = 2
-    val KR = 3
-    val LA1 = 4
-    val LA2 = 5
-    val NA = 6
-    val OCE = 7
-    val TR = 8
-    val RU = 9
-    val EUN = 10
-    val JP = 11
-
 
     fun initApi(){
         // OR simply put
         ClientApi.apply {
             tokenProvider = object : TokenProvider {
                 override fun getToken(): String {
-                    return "RGAPI-26015c48-f5f6-4198-b608-8b4522c82a3c"
+                    return "RGAPI-a953754c-3102-41c9-8a3e-dc7464a8ebd3"
                 }
             }
         }
